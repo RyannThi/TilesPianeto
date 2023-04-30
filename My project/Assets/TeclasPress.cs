@@ -18,73 +18,41 @@ public class TeclasPress : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.UpArrow) && gameObject.name == "Square_Middle")
         {
-            Debug.Log("Objeto foi clicado!");
-            selfSprite.color = new Color(1f, 1f, 1f, 1f);
-            if (tecla)
-            {
-                Debug.Log("NOTA APERTADA!!");
-                selfSprite.color = new Color(0.7f, 1f, 0.7f, 1f);
-                TeclasPool.ReturnObject(tecla);
-            }
+            DetectNote(selfSprite, tecla);
         }
 
         if (Input.GetKey(KeyCode.DownArrow) && gameObject.name == "Square_Middle")
         {
-            Debug.Log("Objeto foi clicado!");
-            selfSprite.color = new Color(1f, 1f, 1f, 1f);
-            if (tecla)
-            {
-                Debug.Log("NOTA APERTADA!!");
-                selfSprite.color = new Color(0.7f, 1f, 0.7f, 1f);
-                TeclasPool.ReturnObject(tecla);
-            }
+            DetectNote(selfSprite, tecla);
         }
 
         if (Input.GetKey(KeyCode.LeftArrow) && gameObject.name == "Square_Left")
         {
-            Debug.Log("Objeto foi clicado!");
-            selfSprite.color = new Color(1f, 1f, 1f, 1f);
-            if (tecla)
-            {
-                Debug.Log("NOTA APERTADA!!");
-                selfSprite.color = new Color(0.7f, 1f, 0.7f, 1f);
-                TeclasPool.ReturnObject(tecla);
-            }
+            DetectNote(selfSprite, tecla);
         }
 
         if (Input.GetKey(KeyCode.RightArrow) && gameObject.name == "Square_Right")
         {
-            Debug.Log("Objeto foi clicado!");
-            selfSprite.color = new Color(1f, 1f, 1f, 1f);
-            if (tecla)
-            {
-                Debug.Log("NOTA APERTADA!!");
-                selfSprite.color = new Color(0.7f, 1f, 0.7f, 1f);
-                TeclasPool.ReturnObject(tecla);
-            }
+            DetectNote(selfSprite, tecla);
         }
 
         if (Input.GetKeyUp(KeyCode.UpArrow) && gameObject.name == "Square_Middle")
         {
-            Debug.Log("Objeto foi solto!");
             selfSprite.color = new Color(1f, 1f, 1f, 0.4f);
         }
 
         if (Input.GetKeyUp(KeyCode.DownArrow) && gameObject.name == "Square_Middle")
         {
-            Debug.Log("Objeto foi solto!");
             selfSprite.color = new Color(1f, 1f, 1f, 0.4f);
         }
 
         if (Input.GetKeyUp(KeyCode.LeftArrow) && gameObject.name == "Square_Left")
         {
-            Debug.Log("Objeto foi solto!");
             selfSprite.color = new Color(1f, 1f, 1f, 0.4f);
         }
 
         if (Input.GetKeyUp(KeyCode.RightArrow) && gameObject.name == "Square_Right")
         {
-            Debug.Log("Objeto foi solto!");
             selfSprite.color = new Color(1f, 1f, 1f, 0.4f);
         }
     }
@@ -93,11 +61,9 @@ public class TeclasPress : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0)) // Verifica se o botão esquerdo do mouse foi pressionado
         {
-            Debug.Log("Objeto foi clicado!");
             selfSprite.color = new Color(1f, 1f, 1f, 1f);
             if (tecla)
             {
-                Debug.Log("NOTA APERTADA!!");
                 selfSprite.color = new Color(0.7f, 1f, 0.7f, 1f);
                 TeclasPool.ReturnObject(tecla);
             }
@@ -108,8 +74,17 @@ public class TeclasPress : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0)) // Verifica se o botão esquerdo do mouse foi pressionado
         {
-            Debug.Log("Objeto foi solto!");
             selfSprite.color = new Color(1f, 1f, 1f, 0.4f);
+        }
+    }
+
+    private void DetectNote(SpriteRenderer selfSprite, GameObject tecla)
+    {
+        selfSprite.color = new Color(1f, 1f, 1f, 1f);
+        if (tecla)
+        {
+            selfSprite.color = new Color(0.7f, 1f, 0.7f, 1f);
+            TeclasPool.ReturnObject(tecla);
         }
     }
 
@@ -120,7 +95,6 @@ public class TeclasPress : MonoBehaviour
         if (collision.gameObject.CompareTag("Tecla"))
         {
             tecla = collision.gameObject;
-            Debug.Log("AAAAAA " + tecla.name);
         }
     }
 

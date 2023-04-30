@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class TeclasPool : MonoBehaviour
@@ -11,16 +12,21 @@ public class TeclasPool : MonoBehaviour
     public static float interval = 2f; // Intervalo entre as notas
     private float timeSpent = 0f;
 
+    public Sprite[] spriteList; // Imagens para as notas
+    public static Sprite[] spriteListStatic; // Imagens para as notas estaticas
     public static Queue<GameObject> objectPool; // Fila para armazenar os objetos da pool
+    Coroutine shakeCoroutine;
 
     void Start()
     {
         // Inicializa a pool
         objectPool = new Queue<GameObject>();
+        spriteListStatic = spriteList;
+        shakeCoroutine = StartCoroutine(EmptyCoroutine());
 
         for (int i = 0; i < initialPoolSize; i++)
         {
-            GameObject obj = Instantiate(prefab, new Vector3(positionBlocks[Random.Range(1, 3)], 4.45f, transform.position.z), Quaternion.identity, transform);
+            GameObject obj = Instantiate(prefab, new Vector3(positionBlocks[Random.Range(0, 3)], 4.45f, transform.position.z), Quaternion.identity, transform);
             obj.name = obj.name + i;
             obj.SetActive(false);
             objectPool.Enqueue(obj);
@@ -46,15 +52,15 @@ public class TeclasPool : MonoBehaviour
         foreach (Transform child in transform)
         {
             var obj = child.gameObject;
-            //Debug.Log(obj.name + " - " + obj.transform.position.y);
             if (obj.activeSelf && obj.transform.position.y < -4.45f)
             {
-                Debug.Log(obj.transform.position.y);
-                obj.transform.position = new Vector3(positionBlocks[Random.Range(1, 3)], 4.45f, 0f); // Reposiciona o objeto
+                obj.transform.position = new Vector3(positionBlocks[Random.Range(0, 3)], 4.45f, 0f); // Reposiciona o objeto
                 obj.SetActive(false); // Desativa o objeto
                 objectPool.Enqueue(obj); // Coloca o objeto de volta no final da fila
                 teclaVelocidade = 3;
                 interval = 2;
+                StopCoroutine(shakeCoroutine);
+                shakeCoroutine = StartCoroutine(CameraShake.ShakeScreen());
             }
         }
     }
@@ -66,6 +72,7 @@ public class TeclasPool : MonoBehaviour
         {
             GameObject obj = objectPool.Dequeue();
             obj.SetActive(true);
+            obj.GetComponent<SpriteRenderer>().sprite = spriteList[Random.Range(0, spriteList.Length)];
             return obj;
         }
         else if (canGrow)
@@ -82,13 +89,20 @@ public class TeclasPool : MonoBehaviour
     // Função para devolver um objeto à pool
     public static void ReturnObject(GameObject obj)
     {
-        obj.transform.position = new Vector3(TeclasPool.positionBlocks[Random.Range(1, 3)], 4.45f, 0f); // Reposiciona o objeto
         obj.SetActive(false);
+        obj.transform.position = new Vector3(TeclasPool.positionBlocks[Random.Range(0, 3)], 4.45f, 0f); // Reposiciona o objeto
+        
+        obj.GetComponent<SpriteRenderer>().sprite = TeclasPool.spriteListStatic[Random.Range(0, TeclasPool.spriteListStatic.Length)];
         objectPool.Enqueue(obj);
         TeclasPool.teclaVelocidade += 0.5f;
-        if (TeclasPool.interval > 0.4f)
+        if (TeclasPool.interval > 0.5f)
         {
-            TeclasPool.interval -= 0.15f;
+            TeclasPool.interval -= 0.05f;
         }
+    }
+
+    private IEnumerator EmptyCoroutine()
+    {
+        yield return null;
     }
 }
