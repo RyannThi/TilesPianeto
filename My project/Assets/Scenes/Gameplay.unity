@@ -1886,7 +1886,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1673201705}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c9e936d1e754ce47b19f497cf534261, type: 3}
+  m_Script: {fileID: 11500000, guid: a6fe26d584bb85641a652ea8a76fe7f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   imagePacks:
@@ -1894,10 +1894,11 @@ MonoBehaviour:
     images:
     - {fileID: 21300000, guid: c3b5c3481033f54488482665aba223b7, type: 3}
     - {fileID: 21300000, guid: 00c25cd1e6c83c44e9d774f3210a835a, type: 3}
-  - packName: Japanese
+  - packName: Japan
     images:
     - {fileID: 21300000, guid: 0e1e6c2b0f103594d9ebbf9e024a3259, type: 3}
     - {fileID: 21300000, guid: 682f5422b7f30b048bb73ca169a96caf, type: 3}
+  spriteList: []
 --- !u!1 &1763987857
 GameObject:
   m_ObjectHideFlags: 0
@@ -2714,17 +2715,6 @@ MonoBehaviour:
   prefab: {fileID: 6957412503422531324, guid: 4976819dadc1fbb47aebab09f9adc81f, type: 3}
   initialPoolSize: 10
   canGrow: 1
-  spriteList:
-  - {fileID: 21300000, guid: 801a84425fc54cd48ba199d4525d1420, type: 3}
-  - {fileID: 21300000, guid: 2031f068304d26c47a0457ad33fe7862, type: 3}
-  - {fileID: 21300000, guid: 8d7756ed15b555348b92efd981464402, type: 3}
-  - {fileID: 21300000, guid: fda81e06eba9b3d4cb564275e1f66696, type: 3}
-  - {fileID: 21300000, guid: a78fbc35a6ae1f8448f65602bc1201b4, type: 3}
-  - {fileID: 21300000, guid: 1f762838d8983554db466d930180d15b, type: 3}
-  - {fileID: 21300000, guid: d8d1fcc8f22318241b43a7731b4f55b1, type: 3}
-  - {fileID: 21300000, guid: c945e45a0b44f634ab49567d06cd9604, type: 3}
-  - {fileID: 21300000, guid: f5bf6e132a826ef49bc12227abbbab27, type: 3}
-  - {fileID: 21300000, guid: 02609621841db714ba1a7cbf0148f9c9, type: 3}
   imagePacks:
   - packName: Galaxy
     images:
@@ -2738,6 +2728,18 @@ MonoBehaviour:
     - {fileID: 21300000, guid: f4f202453982dbc409a513515634ae1b, type: 3}
     - {fileID: 21300000, guid: 94c05ee6162a6ec4f9e287692f471541, type: 3}
     - {fileID: 21300000, guid: 139dbae23332fdb4abeff8eaac6ed5bc, type: 3}
+  - packName: Japan
+    images:
+    - {fileID: 21300000, guid: 801a84425fc54cd48ba199d4525d1420, type: 3}
+    - {fileID: 21300000, guid: 2031f068304d26c47a0457ad33fe7862, type: 3}
+    - {fileID: 21300000, guid: 8d7756ed15b555348b92efd981464402, type: 3}
+    - {fileID: 21300000, guid: fda81e06eba9b3d4cb564275e1f66696, type: 3}
+    - {fileID: 21300000, guid: a78fbc35a6ae1f8448f65602bc1201b4, type: 3}
+    - {fileID: 21300000, guid: 1f762838d8983554db466d930180d15b, type: 3}
+    - {fileID: 21300000, guid: d8d1fcc8f22318241b43a7731b4f55b1, type: 3}
+    - {fileID: 21300000, guid: c945e45a0b44f634ab49567d06cd9604, type: 3}
+    - {fileID: 21300000, guid: f5bf6e132a826ef49bc12227abbbab27, type: 3}
+    - {fileID: 21300000, guid: 02609621841db714ba1a7cbf0148f9c9, type: 3}
 --- !u!4 &2103592824
 Transform:
   m_ObjectHideFlags: 0

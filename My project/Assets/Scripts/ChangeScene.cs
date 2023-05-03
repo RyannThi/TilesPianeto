@@ -25,4 +25,19 @@ public class ChangeScene : MonoBehaviour
     {
         SceneManager.LoadScene("Gameplay");
     }
+
+    public void SwitchPack()
+    {
+        MenuBehavior.packName = "Japan";
+    }
+
+    public void SwitchMenu()
+    {
+        MenuBehavior.submenu = true;
+    }
+
+    public void SwitchBack()
+    {
+        MenuBehavior.submenu = false;
+    }
 }

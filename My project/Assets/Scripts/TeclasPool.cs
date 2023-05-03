@@ -19,7 +19,7 @@ public class TeclasPool : MonoBehaviour
     public static float interval = 2f; // Intervalo entre as notas
     private float timeSpent = 0f;
 
-    public Sprite[] spriteList; // Imagens para as notas
+    //public Sprite[] spriteList; // Imagens para as notas
     public List<ImagePack> imagePacks;
 
     public static Sprite[] spriteListStatic; // Imagens para as notas estaticas
@@ -28,9 +28,18 @@ public class TeclasPool : MonoBehaviour
 
     void Start()
     {
+        foreach (ImagePack pack in imagePacks)
+        {
+            if (pack.packName == MenuBehavior.packName)
+            {
+                spriteListStatic = pack.images;
+                break;
+            }
+        }
+
         // Inicializa a pool
         objectPool = new Queue<GameObject>();
-        spriteListStatic = spriteList;
+        //spriteListStatic = spriteList;
         shakeCoroutine = StartCoroutine(EmptyCoroutine());
 
         // Cria objetos e adiciona na pool
@@ -94,7 +103,7 @@ public class TeclasPool : MonoBehaviour
         {
             GameObject obj = objectPool.Dequeue();
             obj.SetActive(true);
-            obj.GetComponent<SpriteRenderer>().sprite = spriteList[Random.Range(0, spriteList.Length)];
+            obj.GetComponent<SpriteRenderer>().sprite = spriteListStatic[Random.Range(0, spriteListStatic.Length)];
             return obj;
         }
         else if (canGrow)
