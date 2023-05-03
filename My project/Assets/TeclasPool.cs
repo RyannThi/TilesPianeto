@@ -2,6 +2,13 @@
 using System.Collections;
 using UnityEngine;
 
+[System.Serializable]
+public class ImagePack
+{
+    public string packName;
+    public Sprite[] images;
+}
+
 public class TeclasPool : MonoBehaviour
 {
     private static float teclaVelocidade = 3;
@@ -13,6 +20,8 @@ public class TeclasPool : MonoBehaviour
     private float timeSpent = 0f;
 
     public Sprite[] spriteList; // Imagens para as notas
+    public List<ImagePack> imagePacks;
+
     public static Sprite[] spriteListStatic; // Imagens para as notas estaticas
     public static Queue<GameObject> objectPool; // Fila para armazenar os objetos da pool
     Coroutine shakeCoroutine;
@@ -24,11 +33,19 @@ public class TeclasPool : MonoBehaviour
         spriteListStatic = spriteList;
         shakeCoroutine = StartCoroutine(EmptyCoroutine());
 
+        // Cria objetos e adiciona na pool
         for (int i = 0; i < initialPoolSize; i++)
         {
+            // Instancia um objeto
             GameObject obj = Instantiate(prefab, new Vector3(positionBlocks[Random.Range(0, 3)], 4.45f, transform.position.z), Quaternion.identity, transform);
+
+            // Adiciona um número ao nome do objeto
             obj.name = obj.name + i;
+
+            // Desativa o objeto
             obj.SetActive(false);
+
+            // Adiciona o objeto à pool
             objectPool.Enqueue(obj);
         }
     }
@@ -57,10 +74,15 @@ public class TeclasPool : MonoBehaviour
                 obj.transform.position = new Vector3(positionBlocks[Random.Range(0, 3)], 4.45f, 0f); // Reposiciona o objeto
                 obj.SetActive(false); // Desativa o objeto
                 objectPool.Enqueue(obj); // Coloca o objeto de volta no final da fila
+
+                // Reseta a velocidade/intervalo/combo das notas
+                UILabels.ResetComboValue();
                 teclaVelocidade = 3;
                 interval = 2;
+
+                // Treme a tela
                 StopCoroutine(shakeCoroutine);
-                shakeCoroutine = StartCoroutine(CameraShake.ShakeScreen());
+                shakeCoroutine = StartCoroutine(CameraShake.ShakeScreen()); 
             }
         }
     }
@@ -90,14 +112,22 @@ public class TeclasPool : MonoBehaviour
     public static void ReturnObject(GameObject obj)
     {
         obj.SetActive(false);
+
         obj.transform.position = new Vector3(TeclasPool.positionBlocks[Random.Range(0, 3)], 4.45f, 0f); // Reposiciona o objeto
         
+        // Troca o gráfico das notas
         obj.GetComponent<SpriteRenderer>().sprite = TeclasPool.spriteListStatic[Random.Range(0, TeclasPool.spriteListStatic.Length)];
+
         objectPool.Enqueue(obj);
-        TeclasPool.teclaVelocidade += 0.5f;
-        if (TeclasPool.interval > 0.5f)
+        
+        // Diminui o intervalo e aumenta a velocidade das notas, limitando-as
+        if (TeclasPool.interval > 0.4f)
         {
-            TeclasPool.interval -= 0.05f;
+            TeclasPool.interval -= 0.07f;
+        }
+        if (TeclasPool.teclaVelocidade < 7f)
+        {
+            TeclasPool.teclaVelocidade += 0.3f;
         }
     }
 
